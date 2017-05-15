@@ -10,6 +10,7 @@ import com.booboomx.tvshow.Ui.fragemnt.LiveFragment;
 import com.booboomx.tvshow.Ui.fragemnt.MineFragment;
 import com.booboomx.tvshow.base.BaseActivity;
 import com.booboomx.tvshow.widget.BottomTabView;
+import com.booboomx.tvshow.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import static com.booboomx.tvshow.R.id.bottomTabView;
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.viewPager)
-    ViewPager mViewPager;
+    NoScrollViewPager mViewPager;
     @BindView(bottomTabView)
     BottomTabView mBottomTabView;
 
@@ -38,6 +39,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initUI() {
 
+        mViewPager.setNoScroll(true);
         mPagerAdapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

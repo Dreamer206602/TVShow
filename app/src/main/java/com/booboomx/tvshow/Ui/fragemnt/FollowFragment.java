@@ -1,30 +1,43 @@
 package com.booboomx.tvshow.Ui.fragemnt;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
 
 import com.booboomx.tvshow.R;
+import com.booboomx.tvshow.base.BaseLazyLoadFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FollowFragment extends Fragment {
+public class FollowFragment extends BaseLazyLoadFragment {
 
+    public static final String TAG=FollowFragment.class.getSimpleName();
 
-    public FollowFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_follow, container, false);
+    public int getFragmentId() {
+        return R.layout.fragment_follow;
     }
+
+    @Override
+    public void initUI() {
+
+
+    }
+
+    @Override
+    public void initData() {
+        Log.d(TAG, "initData: FollowFragment");
+
+    }
+
+    @Override
+    public void setListener() {
+
+    }
+
+
 
 }
