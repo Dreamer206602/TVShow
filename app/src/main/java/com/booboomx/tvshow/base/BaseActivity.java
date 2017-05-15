@@ -6,10 +6,16 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.booboomx.tvshow.R;
+import com.booboomx.tvshow.widget.BottomTabView;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,6 +33,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract  int getLayoutId();
     public abstract  void  initUI();
 
+    public abstract  void  setListener();
+
     private Unbinder mUnBinder;
     public Context mContext;
 
@@ -39,9 +47,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         }
-
         setContentView(getLayoutId());
         mUnBinder = ButterKnife.bind(this);
+        mContext=this;
+
+        initUI();
+        setListener();
+        setStatusViewColor(getResources().getColor(R.color.colorPrimaryDark));
 
 
 
@@ -100,6 +112,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         return result;
+    }
+
+
+    protected abstract List<BottomTabView.TabItemView> getTabViews();
+    protected abstract List<Fragment> getFragments();
+    protected View getCenterView(){
+        return null;
     }
 
 

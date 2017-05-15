@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center|bottom"
-    tools:context="com.booboomx.tvshow.Ui.WelcomeActivity">
+    tools:context="com.booboomx.tvshow.Ui.activity.WelcomeActivity">
 
 
     <TextView

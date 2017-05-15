@@ -26,13 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-//    testCompile 'junit:junit:4.12'
-
-
-
     compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
     compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -42,23 +36,10 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.jude:easyrecyclerview:4.3.7'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
-
-//    apt 'com.google.dagger:dagger-compiler:2.9'
-//    provided 'org.glassfish:javax.annotation:10.0-b28'
-//    compile 'org.greenrobot:greendao:3.2.0'
-//    provided 'org.greenrobot:greendao-generator:3.2.0'
-//    compile 'de.hdodenhof:circleimageview:2.1.0'
-
-
     compile 'com.king.base:base:2.0'
     compile 'com.king.view:flutteringlayout:1.1.0'
     compile 'com.king.thread:nevercrash:1.0.0'
     compile 'com.bigkoo:convenientbanner:2.0.5'
-//    compile 'com.qiniu:happy-dns:0.2.+'
-
-
-    // 多dex配置
-//    compile 'com.android.support:multidex:1.0.1'
-
-
+    compile 'com.android.support:support-v4:25.3.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

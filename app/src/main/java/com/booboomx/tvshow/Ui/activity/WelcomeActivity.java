@@ -1,4 +1,4 @@
-package com.booboomx.tvshow.Ui;
+package com.booboomx.tvshow.Ui.activity;
 
 import android.view.animation.Animation;
 
@@ -28,7 +28,7 @@ public class WelcomeActivity extends SplashActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 JumpUtils.go2Main(WelcomeActivity.this);
-
+                finish();
 
             }
 
