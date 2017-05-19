@@ -15,7 +15,7 @@
 
     <string name="press_again_to_exit">再按一次退出KingTV</string>
 
-    <string name="scoll_aware_fab_behavior">.view.ScollAwareFABBehavior</string>
+    <string name="fab_behavior">com.booboomx.tvshow.widget.behavior.ScrollAwareFABBehavior</string>
 
     <!-- 房间内 -->
     <string name="room_chat">聊天</string>
