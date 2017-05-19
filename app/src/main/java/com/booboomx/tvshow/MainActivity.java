@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity {
     protected List<Fragment> getFragments() {
          List<Fragment> mFragments = new ArrayList<>();
         mFragments.add(new HomeFragment());
-        mFragments.add(new LiveFragment());
+        mFragments.add(LiveFragment.newInstance(getString(R.string.tab_live),null,true));
         mFragments.add(new FollowFragment());
         mFragments.add(new MineFragment());
         return mFragments;

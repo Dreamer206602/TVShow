@@ -1,7 +1,9 @@
 package com.booboomx.tvshow.base;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,9 +53,8 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
         mUnbinder= ButterKnife.bind(this,mView);
         isInit=true;
 
-        initUI();
         /**初始化的时候去加载数据**/
-//        isCanLoadData();
+        isCanLoadData();
         return mView;
 
     }
@@ -61,8 +62,6 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData();
-        setListener();
     }
 
     /**
@@ -71,7 +70,7 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-//        isCanLoadData();
+        isCanLoadData();
     }
     private void isCanLoadData() {
 
@@ -114,6 +113,13 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
         setListener();
 
     }
+
+
+
+    public void replaceChildFragment(@IdRes int id, Fragment fragment){
+        getChildFragmentManager().beginTransaction().replace(id,fragment).commit();
+    }
+
 
 
     public <T> void  toSetList(List<T> list, List<T> newList, boolean isMore){
