@@ -25,6 +25,7 @@ public interface APIService {
     /**
      * 获取App启动页信息
      * @return
+     * http://www.quanmin.tv/json/page/app-data/info.json?v=3.0.1&os=1&ver=4
      */
     @GET("json/page/app-data/info.json?v=3.0.1&os=1&ver=4")
     Observable<AppStart> getAppStartInfo();

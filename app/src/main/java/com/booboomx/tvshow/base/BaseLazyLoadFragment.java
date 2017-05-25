@@ -1,5 +1,6 @@
 package com.booboomx.tvshow.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -9,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.booboomx.tvshow.Ui.activity.ContentActivity;
 import com.booboomx.tvshow.app.App;
+import com.booboomx.tvshow.bean.LiveInfo;
+import com.booboomx.tvshow.http.Constants;
 import com.booboomx.tvshow.mvp.base.BasePresenter;
 import com.booboomx.tvshow.mvp.base.BaseView;
 import com.hannesdorfmann.mosby.mvp.MvpFragment;
@@ -53,8 +57,9 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
         mUnbinder= ButterKnife.bind(this,mView);
         isInit=true;
 
+        initUI();
         /**初始化的时候去加载数据**/
-        isCanLoadData();
+//        isCanLoadData();
         return mView;
 
     }
@@ -62,6 +67,8 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initData();
+        setListener();
     }
 
     /**
@@ -70,7 +77,7 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        isCanLoadData();
+//        isCanLoadData();
     }
     private void isCanLoadData() {
 
@@ -139,4 +146,54 @@ public abstract class BaseLazyLoadFragment<V extends BaseView,P extends BasePres
         mUnbinder.unbind();
         super.onDestroy();
     }
+
+    //---------------------------------------------------------------------------
+    protected Intent getIntent(){
+        return getActivity().getIntent();
+    }
+
+    protected Intent getFragmentIntent(int fragmentKey){
+        Intent intent = getContentActivityIntent();
+        intent.putExtra(Constants.KEY_FRAGMENT,fragmentKey);
+        return intent;
+    }
+
+    protected Intent getContentActivityIntent(){
+        return new Intent(getContext(), ContentActivity.class);
+    }
+
+    protected void finish(){
+        getActivity().finish();
+    }
+
+
+    protected void startWeb(String title,String url){
+        Intent intent = getFragmentIntent(Constants.WEB_FRAGMENT);
+        intent.putExtra(Constants.KEY_TITLE,title);
+        intent.putExtra(Constants.KEY_URL,url);
+        startActivity(intent);
+    }
+
+    protected void startRoom(LiveInfo liveInfo){
+
+        int fragmentKey = Constants.ROOM_FRAGMENT;
+        if(Constants.SHOWING.equalsIgnoreCase(liveInfo.getCategory_slug())){
+            fragmentKey = Constants.FULL_ROOM_FRAGMENT;
+        }
+        Intent intent = getFragmentIntent(fragmentKey);
+        intent.putExtra(Constants.KEY_UID,liveInfo.getUid());
+        intent.putExtra(Constants.KEY_COVER,liveInfo.getThumb());
+        startActivity(intent);
+    }
+
+    protected void startLogin(){
+        Intent intent = getFragmentIntent(Constants.LOGIN_FRAGMENT);
+        startActivity(intent);
+    }
+
+    protected void startAbout(){
+        Intent intent = getFragmentIntent(Constants.ABOUT_FRAGMENT);
+        startActivity(intent);
+    }
+
 }

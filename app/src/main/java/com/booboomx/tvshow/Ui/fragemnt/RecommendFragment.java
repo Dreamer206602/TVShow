@@ -44,20 +44,14 @@ public class RecommendFragment extends BaseLazyLoadFragment<IRecommendView,Recom
     private ConvenientBanner<Banner>mConvenientBanner;
     private TextView tvTips;
     @BindView(R.id.recyclerView)
-    EasyRecyclerView mRecyclerView;
-
-
+   public EasyRecyclerView mRecyclerView;
     private RecommendAdapter mAdapter;
-
     private List<Recommend.RoomBean>listData;
     private List<Banner>listBanner;
-
     public  static RecommendFragment newInstance(){
-
         Bundle bundle=new Bundle();
         RecommendFragment fragment=new RecommendFragment();
         fragment.setArguments(bundle);
-
         return fragment;
     }
 
@@ -69,14 +63,10 @@ public class RecommendFragment extends BaseLazyLoadFragment<IRecommendView,Recom
 
     @Override
     public void initUI() {
-
          tvTips = (TextView) mRecyclerView.findViewById(R.id.tvTips);
-
-
         SpaceDecoration decoration=new SpaceDecoration(0);
         mRecyclerView.addItemDecoration(decoration);
         mRecyclerView.setRefreshingColorResources(R.color.progress_color);
-
 
 
         listData=new ArrayList<>();
@@ -87,28 +77,21 @@ public class RecommendFragment extends BaseLazyLoadFragment<IRecommendView,Recom
         mAdapter.addHeader(new HeaderView(listBanner));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 getPresenter().getRecommend();
             }
         });
-
-
-
 
     }
 
     @Override
     public void initData() {
-
         mRecyclerView.showProgress();
         getPresenter().getRecommend();
         getPresenter().getBanner();
-
 
     }
 
@@ -196,12 +179,15 @@ public class RecommendFragment extends BaseLazyLoadFragment<IRecommendView,Recom
             mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
+                    clickBannerItem(listBanner.get(position));
 
                 }
             });
 
             return v;
         }
+
+
 
         @Override
         public void onBindView(View headerView) {
@@ -268,6 +254,17 @@ public class RecommendFragment extends BaseLazyLoadFragment<IRecommendView,Recom
         super.onPause();
         if (mConvenientBanner != null) {
             mConvenientBanner.stopTurning();
+        }
+    }
+
+
+    private void clickBannerItem(Banner banner){
+        if(banner!=null){
+            if(banner.isRoom()){//如果是房间类型就点击进入房间
+                startRoom(banner.getLink_object());
+            }else{//广告类型
+                startWeb(banner.getTitle(),banner.getLink());
+            }
         }
     }
 }

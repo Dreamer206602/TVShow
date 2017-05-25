@@ -61,9 +61,7 @@ public class HomeFragment extends BaseLazyLoadFragment<ICategoryView, CategoryPr
         listTitle=new ArrayList<>();
         listData=new ArrayList<>();
 
-
         mFragmentAdapter=new ViewPagerFragmentAdapter(getChildFragmentManager(),listData,listTitle);
-
         mViewPager.setAdapter(mFragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
@@ -109,7 +107,6 @@ public class HomeFragment extends BaseLazyLoadFragment<ICategoryView, CategoryPr
 
 
         if (list != null) {
-
             toSetList(listCategory,list,false);
 
             listData.clear();

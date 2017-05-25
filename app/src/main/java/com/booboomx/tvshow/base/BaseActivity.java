@@ -30,10 +30,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final int COLOR_DEFAULT = Color.parseColor("#7f000000");
 
 
-    public abstract  int getLayoutId();
-    public abstract  void  initUI();
+    public abstract int getLayoutId();
 
-    public abstract  void  setListener();
+    public abstract void initUI();
+
+    public abstract void setListener();
 
     private Unbinder mUnBinder;
     public Context mContext;
@@ -43,30 +44,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // 从4.4版本开始
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
         setContentView(getLayoutId());
         mUnBinder = ButterKnife.bind(this);
-        mContext=this;
+        mContext = this;
 
+        setStatusViewColor(getResources().getColor(R.color.colorPrimaryDark));
         initUI();
         setListener();
-        setStatusViewColor(getResources().getColor(R.color.colorPrimaryDark));
-
-
 
 
     }
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void  setStatusViewColor(int statusColor){
+    public void setStatusViewColor(int statusColor) {
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            if(statusColor!=INVALID_VAL){
+            if (statusColor != INVALID_VAL) {
                 getWindow().setStatusBarColor(statusColor);
             }
 
@@ -74,22 +72,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT&& Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
 
-
-            int color=COLOR_DEFAULT;
+            int color = COLOR_DEFAULT;
 
             ViewGroup contentView = (ViewGroup) findViewById(android.R.id.content);
 
-            if(statusColor!=INVALID_VAL){
-                color=statusColor;
+            if (statusColor != INVALID_VAL) {
+                color = statusColor;
             }
 
 
-            View statusBarView=new View(this);
-            ViewGroup.LayoutParams lp=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(this));
+            View statusBarView = new View(this);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(this));
             statusBarView.setBackgroundColor(color);
-            contentView.addView(statusBarView,lp);
+            contentView.addView(statusBarView, lp);
 
         }
 
@@ -99,16 +96,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 获取状态栏的高度
+     *
      * @param context
      * @return
      */
-    public int getStatusBarHeight(Context context){
+    public int getStatusBarHeight(Context context) {
 
-        int result=0;
+        int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
 
-        if(resourceId>0){
-            result=context.getResources().getDimensionPixelSize(resourceId);
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
         }
 
         return result;
@@ -116,8 +114,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     protected abstract List<BottomTabView.TabItemView> getTabViews();
+
     protected abstract List<Fragment> getFragments();
-    protected View getCenterView(){
+
+    protected View getCenterView() {
         return null;
     }
 

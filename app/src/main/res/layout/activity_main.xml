@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:clipChildren="true"
-    tools:context="com.booboomx.tvshow.MainActivity">
+    tools:context="com.booboomx.tvshow.Ui.activity.MainActivity">
 
 
     <com.booboomx.tvshow.widget.NoScrollViewPager

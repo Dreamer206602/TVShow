@@ -141,6 +141,7 @@ public class LiveListFragment extends BaseLazyLoadFragment<ILiveListView, LiveLi
         mAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                startRoom(mAdapter.getItem(position));
 
             }
         });

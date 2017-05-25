@@ -1,8 +1,11 @@
 package com.booboomx.tvshow.http;
 
+import com.booboomx.tvshow.BuildConfig;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,9 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by booboomx on 17/5/18.
  */
-
 public class APIRetrofit {
-
     /**
      *  默认超时时间 单位/秒
      */
@@ -38,6 +39,8 @@ public class APIRetrofit {
                             .client(getsOKHttpClient())
                             .build();
 
+
+
                 }
             }
         }
@@ -47,19 +50,36 @@ public class APIRetrofit {
 
 
     public static OkHttpClient getsOKHttpClient(){
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        if(BuildConfig.DEBUG){
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        }else{
+            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        }
+        OkHttpClient.Builder builder=new OkHttpClient.Builder();
+        builder.addInterceptor(logging);
+
         if(sOKHttpClient == null){
             synchronized (APIRetrofit.class){
 
                 if(sOKHttpClient == null){
-                    sOKHttpClient = new OkHttpClient.Builder()
-                            .connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
-                            .readTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
-                            .writeTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
-                            .build();
+
+                    builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
+                    builder.readTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
+                    builder.writeTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
+                    sOKHttpClient=builder.build();
+
                 }
             }
         }
 
         return sOKHttpClient;
     }
+
+
+
+
+
+
 }
