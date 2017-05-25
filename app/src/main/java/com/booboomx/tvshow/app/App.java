@@ -10,6 +10,8 @@ import com.booboomx.tvshow.dao.greendao.DaoMaster;
 import com.booboomx.tvshow.dao.greendao.DaoSession;
 import com.booboomx.tvshow.http.Constants;
 
+import cn.sharesdk.framework.ShareSDK;
+
 /**
  * Created by booboomx on 17/5/18.
  */
@@ -38,6 +40,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ShareSDK.initSDK(this);
         initDataBase();
         mAppComponent= DaggerAppComponent.builder().appModule(new AppModule(this, Constants.BASE_URL)).build();
     }

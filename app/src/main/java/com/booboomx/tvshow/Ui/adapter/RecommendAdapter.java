@@ -79,7 +79,6 @@ public class RecommendAdapter extends RecyclerArrayAdapter<Recommend.RoomBean>{
             mChildAdapter.setOnItemClicklistener(new HolderRecyclerAdapter.OnItemClicklistener() {
                 @Override
                 public void onItemClick(View v, int position) {
-
                     //－1 去掉头部
                     Recommend.RoomBean.ListBean listBean = getAllData().get(getAdapterPosition() - 1).getList().get(position);
                     startRoom(getContext(),listBean);

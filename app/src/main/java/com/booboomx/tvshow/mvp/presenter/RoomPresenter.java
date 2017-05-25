@@ -18,19 +18,20 @@ import rx.schedulers.Schedulers;
  */
 
 public class RoomPresenter extends BasePresenter<IRoomView> {
-    public static final String TAG=RoomPresenter.class.getSimpleName();
+    public static final String TAG = RoomPresenter.class.getSimpleName();
+
     public RoomPresenter(App app) {
         super(app);
     }
 
-    public void enterRoom(String uid){
-        enterRoom(uid,false);
+    public void enterRoom(String uid) {
+        enterRoom(uid, false);
     }
 
 
-    public void enterRoom(String uid, final boolean isShowing){
+    public void enterRoom(String uid, final boolean isShowing) {
 
-        if(isViewAttached()){
+        if (isViewAttached()) {
             getView().showProgress();
         }
 
@@ -49,7 +50,7 @@ public class RoomPresenter extends BasePresenter<IRoomView> {
                     @Override
                     public void onCompleted() {
                         Log.i(TAG, "onCompleted: ");
-                        if(isViewAttached())
+                        if (isViewAttached())
                             getView().onCompleted();
 
                     }
@@ -57,45 +58,40 @@ public class RoomPresenter extends BasePresenter<IRoomView> {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.i(TAG, "onError: "+e.getMessage());
-                        if(isViewAttached())
+                        Log.i(TAG, "onError: " + e.getMessage());
+                        if (isViewAttached())
                             getView().onError(e);
                     }
 
                     @Override
                     public void onNext(Room room) {
 
-                        Log.i(TAG, "onNext: "+room.getTitle());
-                        if(isViewAttached())
+                        Log.i(TAG, "onNext: " + room.getTitle());
+                        if (isViewAttached())
                             getView().enterRoom(room);
 
+                        if (room != null) {
 
-//                        if (room != null) {
-
-                            String url=null;
+                            String url = null;
                             RoomLine roomLine = room.getLive().getWs();
 
                             RoomLine.FlvBean flv = roomLine.getFlv();
 
                             if (flv != null) {
-                                 url = flv.getValue(isShowing).getSrc();
-                            }else{
-                                url=roomLine.getHls().getValue(isShowing).getSrc();
+                                url = flv.getValue(isShowing).getSrc();
+                            } else {
+                                url = roomLine.getHls().getValue(isShowing).getSrc();
                             }
-
-
-                        Log.i(TAG, "onNext: url"+url);
-                            if(isViewAttached())
+                            Log.i(TAG, "onNext: url" + url);
+                            if (isViewAttached())
                                 getView().playUrl(url);
-
 
                         }
 
-//                    }
+                    }
                 });
 
     }
-
 
 
 }

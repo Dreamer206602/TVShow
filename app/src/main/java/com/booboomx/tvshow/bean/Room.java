@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Room {
 
-
     /**
      * uid : 326745
      * no : 326745

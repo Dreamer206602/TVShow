@@ -64,7 +64,6 @@ public class VideoFragment extends SimpleFragment {
     }
 
     private void pause() {
-
         if (vtv != null) {
             vtv.pause();
         }
@@ -89,7 +88,6 @@ public class VideoFragment extends SimpleFragment {
     @Override
     public void initData() {
         Log.i(TAG, "initUI:sss "+url);
-
         vtv.setVideoPath(url);
         if(isFull){
             vtv.setDisplayOrientation(PLVideoView.ASPECT_RATIO_PAVED_PARENT);
