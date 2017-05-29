@@ -85,13 +85,13 @@
     <string name="about">关于</string>
     <string name="author_">Author:</string>
     <string name="email_">Email:</string>
-    <string name="csdn_">CSDN:</string>
+    <string name="csdn_">简书:</string>
     <string name="github_">GitHub:</string>
 
     <string name="author">boobooMX</string>
     <string name="email_jenly"><u>boobooMX@163.com</u></string>
-    <string name="github_jenly"><u>https://github.com/jenly1314</u></string>
+    <string name="github_jenly"><u>https://github.com/Dreamer206602</u></string>
+    <string name="jianshu">http://www.jianshu.com/u/c9f7daba2092<u></u></string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -9,6 +9,7 @@ import com.booboomx.tvshow.bean.SearchResult;
 import com.booboomx.tvshow.http.APIRetrofit;
 import com.booboomx.tvshow.mvp.base.BasePresenter;
 import com.booboomx.tvshow.mvp.view.ILiveListView;
+import com.king.base.util.LogUtils;
 import com.king.base.util.StringUtils;
 
 import java.util.List;
@@ -29,8 +30,6 @@ public class LiveListPresenter extends BasePresenter<ILiveListView> {
     public LiveListPresenter(App app) {
         super(app);
     }
-
-
     public void getLiveList(String slug){
         if(StringUtils.isBlank(slug)){
             getLiveList();
@@ -175,8 +174,58 @@ public class LiveListPresenter extends BasePresenter<ILiveListView> {
 
                     }
                 });
+    }
 
 
+    public void getLiveListByKey(String key,int page){
+        getLiveListByKey(key,page,P.DEFAULT_SIZE);
+    }
+
+    public void getLiveListByKey(String key, final int page, int pageSize){
+        if(isViewAttached()){
+            getView().showProgress();
+        }
+        APIRetrofit.getAPIService()
+                .search(SearchRequestBody.getInstance(new P(page,key,pageSize)))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<SearchResult, List<LiveInfo>>() {
+
+                    @Override
+                    public List<LiveInfo> call(SearchResult searchResult) {
+                        LogUtils.d("Response:" + searchResult);
+                        if(searchResult!=null){
+                            if(searchResult.getData()!=null){
+                                return searchResult.getData().getItems();
+                            }else{
+                                LogUtils.d(searchResult.toString());
+                            }
+
+                        }
+                        return null;
+                    }
+                })
+                .onErrorReturn(new Func1<Throwable, List<LiveInfo>>() {
+                    @Override
+                    public List<LiveInfo> call(Throwable throwable) {
+                        LogUtils.w(throwable);
+                        return null;
+                    }
+                })
+                .subscribe(new Action1<List<LiveInfo>>() {
+                    @Override
+                    public void call(List<LiveInfo> list) {
+                        if(isViewAttached()){
+                            if(page>0){
+                                getView().onGetMoreLiveList(list);
+                            }else{
+                                getView().onGetLiveList(list);
+                            }
+
+                        }
+
+                    }
+                });
 
     }
 }

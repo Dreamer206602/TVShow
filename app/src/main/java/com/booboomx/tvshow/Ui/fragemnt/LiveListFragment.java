@@ -159,6 +159,13 @@ public class LiveListFragment extends BaseLazyLoadFragment<ILiveListView, LiveLi
 
     }
 
+
+    public void search(String key,int page){
+        this.key = key;
+        this.page = page;
+        getPresenter().getLiveListByKey(key,page);
+    }
+
     @Override
     public void setListener() {
 

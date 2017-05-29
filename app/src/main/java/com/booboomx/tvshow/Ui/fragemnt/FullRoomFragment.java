@@ -140,8 +140,6 @@ public class FullRoomFragment extends BaseLazyLoadFragment<IRoomView,RoomPresent
     @Override
     public void onError(Throwable e) {
         mProgressBar.setVisibility(View.GONE);
-
-
     }
 
     @Override

@@ -1,23 +1,29 @@
 package com.booboomx.tvshow.Ui.fragemnt;
 
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.booboomx.tvshow.R;
-import com.booboomx.tvshow.base.BaseLazyLoadFragment;
-import com.booboomx.tvshow.mvp.presenter.CategoryPresenter;
-import com.hannesdorfmann.mosby.mvp.MvpPresenter;
+import com.booboomx.tvshow.base.SimpleFragment;
+import com.booboomx.tvshow.http.Constants;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 关注的界面
  */
-public class FollowFragment extends BaseLazyLoadFragment {
-
-    public static final String TAG=FollowFragment.class.getSimpleName();
-
-
+public class FollowFragment extends SimpleFragment {
+    @BindView(R.id.ivLeft)
+    ImageView ivLeft;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.ivRight)
+    ImageView ivRight;
+    @BindView(R.id.tvLogin)
+    TextView tvLogin;
 
     @Override
     public int getFragmentId() {
@@ -26,13 +32,12 @@ public class FollowFragment extends BaseLazyLoadFragment {
 
     @Override
     public void initUI() {
-
+        tvTitle.setText(R.string.tab_follw);
 
     }
 
     @Override
     public void initData() {
-        Log.d(TAG, "initData: FollowFragment");
 
     }
 
@@ -41,9 +46,19 @@ public class FollowFragment extends BaseLazyLoadFragment {
 
     }
 
-    @NonNull
-    @Override
-    public MvpPresenter createPresenter() {
-        return new CategoryPresenter(getApp());
+
+    @OnClick({R.id.ivLeft, R.id.ivRight, R.id.tvLogin})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ivLeft:
+                startActivity(getFragmentIntent(Constants.SEARCH_FRAGMENT));
+                break;
+            case R.id.ivRight:
+                startLogin();
+                break;
+            case R.id.tvLogin:
+                startLogin();
+                break;
+        }
     }
 }

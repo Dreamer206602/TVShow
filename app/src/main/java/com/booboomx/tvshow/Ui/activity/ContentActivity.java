@@ -5,8 +5,13 @@ import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 
 import com.booboomx.tvshow.R;
+import com.booboomx.tvshow.Ui.fragemnt.AboutFragment;
 import com.booboomx.tvshow.Ui.fragemnt.FullRoomFragment;
+import com.booboomx.tvshow.Ui.fragemnt.LiveFragment;
+import com.booboomx.tvshow.Ui.fragemnt.LoginFragment;
 import com.booboomx.tvshow.Ui.fragemnt.RoomFragment;
+import com.booboomx.tvshow.Ui.fragemnt.SearchFragment;
+import com.booboomx.tvshow.Ui.fragemnt.WebFragment;
 import com.booboomx.tvshow.base.BaseActivity;
 import com.booboomx.tvshow.http.Constants;
 import com.booboomx.tvshow.widget.BottomTabView;
@@ -30,12 +35,21 @@ public class ContentActivity extends BaseActivity {
                 replaceFragment(RoomFragment.newInstance(intent.getStringExtra(Constants.KEY_UID)));
                 break;
             case Constants.LIVE_FRAGMENT:
+                String title = intent.getStringExtra(Constants.KEY_TITLE);
+                String slug = intent.getStringExtra(Constants.KEY_SLUG);
+                boolean isTabLive = intent.getBooleanExtra(Constants.KEY_IS_TAB_LIVE, false);
+                replaceFragment(LiveFragment.newInstance(title, slug, isTabLive));
                 break;
             case Constants.WEB_FRAGMENT:
+                String web_title = intent.getStringExtra(Constants.KEY_TITLE);
+                String url = intent.getStringExtra(Constants.KEY_URL);
+                replaceFragment(WebFragment.newInstance(url, web_title));
                 break;
             case Constants.LOGIN_FRAGMENT:
+                replaceFragment(new LoginFragment());
                 break;
             case Constants.ABOUT_FRAGMENT:
+                replaceFragment(new AboutFragment());
                 break;
             case Constants.FULL_ROOM_FRAGMENT:
                 String uid = intent.getStringExtra(Constants.KEY_UID);
@@ -43,6 +57,7 @@ public class ContentActivity extends BaseActivity {
                 replaceFragment(FullRoomFragment.newInstance(uid,cover));
                 break;
             case Constants.SEARCH_FRAGMENT:
+                replaceFragment(SearchFragment.newInstance());
                 break;
 
 
